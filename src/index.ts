@@ -5,9 +5,24 @@ import RateLimit from 'express-rate-limit';
 import globalError from './errors/globalErrors';
 import errorMiddleware from './middleware/errors/errorMiddleware';
 import config from './utils/config';
+import db from './database';
 
 const PORT = config.port || 5000;
 const app: Application = express();
+
+// Test db
+db.connect().then((client) => {
+  return client
+    .query('SELECT NOW()')
+    .then((res) => {
+      client.release();
+      console.log(res.rows);
+    })
+    .catch((err) => {
+      client.release();
+      console.log(err.stack);
+    });
+});
 
 // bodyParser Is A middleware To Parse Post Requests Data
 app.use(express.json());
