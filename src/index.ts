@@ -32,6 +32,7 @@ app.use(
 // Add a Get Request To /
 app.get('/', (req: Request, res: Response) => {
   // throw new Error('qweqweqwe');
+  // throw new Error('qweqweqwe');
   res.json({
     message: 'hello World From Get',
   });
